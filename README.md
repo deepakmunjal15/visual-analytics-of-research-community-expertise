@@ -1,0 +1,25 @@
+**Abstract of the research:**
+
+Association for Computing Machinery (ACM) is an international learned society for computing. ACM operates the Distinguished Speaker Program (ACMDSP). The ACMDSP maintains a list of speakers, who can be invited to deliver lectures on various Computer Science topics at various locations worldwide. Funding for the speakers’ travel expenses is shared between the ACMDSP program and the host organizations. ACMDSP Committee manages speaker recruitment based on supply and demand of speakers. Currently, speakers’ lectures are classified into topics manually. The thesis describes an interactive system to support the ACMDSP committee in managing speaker recruitment, and in classifying the lectures on offer into topics. We have speaker data (list of speakers with associated lecture titles and abstracts, classified by topic) and lecture data (list of lectures given, including location, date, speaker, and lecture title/abstract). Currently, the ACMDSP committee accesses this data directly through the database. This thesis is attempting to make it more intuitive and interesting to access the database through a visualization system. It uses the Google Map API to visualize the speaker, topic and lecture data. It displays the speaker’s location and contact details on the Google Map. Further, it provides search options and filters to access the required information from the database. Each lecture delivered by the speakers is assigned to one or more topics from the set of topics defined by the ACMDSP committee. The problem of categorizing lectures, delivered by various speakers, into topics is similar to the problem of categorizing research papers into topics/categories. Hence, for each topic defined by the ACMDSP committee, we have manually associated a set of keywords from the NSERC list of research topics. These keywords are used to create training sets for each topic using the Microsoft Academic API. Title and abstract information of these research papers along with a lecture topic are used to train the machine learning models, which classify each lecture title and abstract into one or more topics of a predefined topic structure. This thesis uses three document representations, based on bag of words, bag of concepts and bag of categories document representations. Further, we have used three consensus methods, which include linear regression, class with maximum probability and voting based. Each of these methods is a consensus method in itself and every individual consensus method forms an agreement to predict a topic. These consensus methods are used to predict the lecture topic(s). The contributions of the thesis are the following: • It expanded on the previous classification model based on semantic representations of lecture titles/abstracts that can classify a large set of lectures into topics. Previous work used the topics to construct the training data. However, this thesis used the NSERC keywords to describe the ACMDSP topics and construct the training data. The classifier can predict up to three topics for a single Lecture. • It created an interactive visualization system that facilitates the interaction of the ACMDSP committee with the database.
+
+**Configuration:**
+• These are the list of important libraries that need to be installed: Scipy, matplotlib, numpy, pandas, sklearn.
+• All other libraries are mentioned along with the code.
+
+#File Paths, APIs keys, Folders
+• The folder ACM Crawler contains a script that crawls data from the ACMDSP website using BeautifulSoup.
+• This data is appended with the other ACMDSP data and is present in the folder ACM data.
+• This folder contains:
+	• 2018-03 Requests for the past Year.xlsx - This contains lectures given in the past.
+	• All Available Lectures.xlsx - All the available lectures by various ACMDSP speakers.
+	• NSERC Research Topics.xlsx - All NSERC research topics taken from http://www.nserc-crsng.gc.ca/Professors-Professeurs/Grants-Subs/dgplist-psdliste_eng.asp#1507
+	• Speakers.csv - ACMDSP speakers and their details, which includes email contact, city, state, country and many other relevant attributes.
+	• Topics.csv - Keywords corresonding to the NSERC research topics.
+• Most of the code files are self explanatory with comments. However for msacademic.py, there is a need to create a Microsoft Academic Api.
+• Use of Microsoft Academic in the script requires an API key to access and collect data. The process to create a key is available at Microsoft official website:
+  https://www.microsoft.com/en-us/research/project/academic/articles/sign-academic-knowledge-api/
+• This requires signing up for the account and requesting an API key.
+• The training data folder contains the training data for the machine learning system, which was collected using the msacademic.py script.
+• All paths need to be replaced by the actual file paths.
+• The file in the visualization folder requires a Google Map API key to execute.
+• The guidelines to create a Google Map APi key is mentioned on the official website: https://developers.google.com/maps/documentation/geocoding/get-api-key
