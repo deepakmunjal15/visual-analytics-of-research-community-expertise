@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+#topic {
+    border-radius: 18px;    
+}
+
+#speaker_name {
+    border-radius: 18px;    
+}
+
+#country {
+    border-radius: 18px;    
+}
+
+
+</style>
+
+<body>
+
+<b><i>Check Speaker or Seminar Distribution</i></b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><i>By Topic, Speaker Name or year</i></b><br><br>
+
+<form id="form" action="http://localhost:5000/" method="POST" name="formdata">
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="topic" type="text" name="topic" size="25" placeholder="Search By Topic"><br>
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="speaker_name" type="text" name="speaker_name" size="25" placeholder="Search By Speaker Name"><br>
+<br>
+
+&nbsp;&nbsp;Year &nbsp;&nbsp;&nbsp;&nbsp;  <input id="year_from" type="text" name="year_from" size="2" placeholder="From">  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id="year_to" type="text" name="year_to" size="2" placeholder="To">
+<br><br>
+
+<input type="radio" id="speaker_distribution" name="distribution" value="a" checked>
+<label for="id="speaker_distribution" ">Speaker Distribution</label>
+<input type="radio" id="seminar_distribution" name="distribution" value="b">
+<label for="seminar_distribution">Seminar Distribution</label>
+<br><br>
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Submit" id="Submit" style="height:30px; width:100px"><br><br>
+</form>
+<br><br><br><br>
+
+
+
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><i>Check Speaker Requirement</i></b><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input id="country" type="text" name="country" size="25" placeholder="country"><br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Recruit Speakers" id="Recruit" style="height:30px; width:150px"><br><br>
+
+
+<br><br><br><br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+
+
+var a1={{value1|safe}};
+console.log(a1);
+
+var a2={{value2}};
+console.log(a2);
+
+var a3={{value3}};
+console.log(a3);
+
+var a4={{value4}};
+console.log(a4);
+
+k=0
+if (a2.length==0 && k==0){
+document.getElementById('Submit').click();
+k=1
+}
+
+
+
+var locs = new Array(a1.length);
+for (i = 0; i < a1.length; i++) {
+
+locs[i]=[a1[i], a2[i], a3[i], a4[i]];
+}
+console.log(locs);
+
+  function initialize() {
+    var locations = locs;
+    //var locations = [
+     // ['DESCRIPTION', a1[0], a2[0], 3],
+      //['DESCRIPTION', 41.914873, 12.506486, 2],
+      //['DESCRIPTION', 41.918574, 12.507201, 1]
+	//
+    //];
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 15,
+      center: new google.maps.LatLng(locations[0][1], locations[0][2]),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    for (i = 0; i < locations.length; i++) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map
+      });
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+    }
+  }
+
+  function loadScript() {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=ADD THE GOOGLE MAP API KEY HERE&v=3.exp&' + 'callback=initialize';
+    document.body.appendChild(script);
+  }
+
+  window.onload = loadScript;
+
+</script>
+
+<div id="map" style="width: 90%; height: 700px;"></div>
+
+
+</body>
+</html>
